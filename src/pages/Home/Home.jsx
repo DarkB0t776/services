@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import { getServices } from '../../store';
 
-import Navbar from '../../components/Navbar/Navbar';
-import NavbarClone from '../../components/NavbarClone/NavbarClone';
 import ServiceItem from '../../components/ServiceItem/ServiceItem';
 import Hero from '../../components/Hero/Hero';
 
@@ -28,8 +26,6 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar />
-      <NavbarClone />
       <Hero />
       <section className='section section-feature-grey is-medium'>
         <div className='container'>
