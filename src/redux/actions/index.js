@@ -7,8 +7,11 @@ import {
 import * as api from '../../api';
 
 export const fetchServices = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
+      const existedServices = getState().services.items;
+      if (existedServices.length) return;
+
       dispatch({ type: FETCH_SERVICES_REQUEST });
       const services = await api.fetchServices();
       return dispatch({
