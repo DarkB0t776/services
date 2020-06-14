@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { getServices } from '../../store';
+import { fetchServices } from '../../redux/actions';
 
 import ServiceItem from '../../components/ServiceItem/ServiceItem';
 import Hero from '../../components/Hero/Hero';
 
 const Home = () => {
-  const [services, setServices] = useState([]);
+  const dispatch = useDispatch();
+  const services = useSelector((state) => state.services.items);
 
   useEffect(() => {
-    const services = getServices();
-    setServices(services);
+    dispatch(fetchServices());
   }, []);
 
   const renderServices = (services) => {
