@@ -11,7 +11,7 @@ const ServiceDetail = () => {
 
   useEffect(() => {
     dispatch(selectService(id));
-  }, []);
+  }, [id, dispatch]);
 
   return (
     <section className='hero is-fullheight is-default is-bold'>
@@ -28,9 +28,9 @@ const ServiceDetail = () => {
               <h2 className='subtitle is-4'>{service.description}</h2>
               <br />
               <p className='has-text-centered'>
-                <a className='button is-medium is-info is-outlined'>
+                <button className='button is-medium is-info is-outlined'>
                   Learn more
-                </a>
+                </button>
               </p>
             </div>
           </div>
@@ -41,7 +41,7 @@ const ServiceDetail = () => {
           <div className='tabs is-centered'>
             <ul>
               <li>
-                <a>And this is the bottom</a>
+                <button>And this is the bottom</button>
               </li>
             </ul>
           </div>
