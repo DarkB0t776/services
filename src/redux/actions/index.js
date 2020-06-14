@@ -1,4 +1,5 @@
-const { FETCH_SERVICES } = require('../types');
+import { FETCH_SERVICES } from '../types';
+import db from '../../db';
 
 const services = [
   {
@@ -25,6 +26,14 @@ const services = [
 ];
 
 export const fetchServices = () => {
+  db.collection('services')
+    .get()
+    .then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        console.log(doc.data());
+      });
+    });
+
   return {
     type: FETCH_SERVICES,
     services,
