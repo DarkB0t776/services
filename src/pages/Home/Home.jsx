@@ -17,6 +17,7 @@ const Home = () => {
   const renderServices = (services) => {
     return services.map(({ id, title, description, image }) => (
       <ServiceItem
+        id={id}
         key={id}
         title={title}
         description={description}

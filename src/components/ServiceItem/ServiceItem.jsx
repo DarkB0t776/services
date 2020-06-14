@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-const ServiceItem = ({ title, image, description }) => {
+const ServiceItem = ({ id, title, image, description }) => {
   const shortText = (text, maxLength = 50) => {
     if (!text) return '';
     if (text.length <= maxLength) return text;
@@ -24,9 +25,12 @@ const ServiceItem = ({ title, image, description }) => {
           <p>{shortText(description)}</p>
         </div>
         <div className='card-action'>
-          <a href='#' className='button btn-align-md accent-btn raised'>
+          <Link
+            to={`/services/${id}`}
+            className='button btn-align-md accent-btn raised'
+          >
             Lear More
-          </a>
+          </Link>
         </div>
       </div>
     </div>
@@ -34,9 +38,10 @@ const ServiceItem = ({ title, image, description }) => {
 };
 
 ServiceItem.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  image: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
 };
 
 export default ServiceItem;

@@ -7,9 +7,16 @@ import rootReducer from '../redux/reducers';
 
 const browserSupport =
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
-const middlewares = [logger, thunk];
 
-export const store = createStore(
+let middlewares = [thunk];
+
+if (process.env.NODE_ENV !== 'production') {
+  middlewares = [logger, thunk];
+}
+
+let store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(...middlewares))
 );
+
+export default store;
