@@ -5,10 +5,12 @@ import { fetchServices } from '../../redux/actions';
 
 import ServiceItem from '../../components/ServiceItem/ServiceItem';
 import Hero from '../../components/Hero/Hero';
+import Spinner from '../../components/Spinner/Spinner';
 
 const Home = () => {
   const dispatch = useDispatch();
   const services = useSelector((state) => state.services.items);
+  const isFetching = useSelector((state) => state.services.isFetching);
 
   useEffect(() => {
     dispatch(fetchServices());
@@ -26,6 +28,12 @@ const Home = () => {
     ));
   };
 
+  let servicesJSX = renderServices(services);
+
+  if (isFetching) {
+    servicesJSX = <Spinner />;
+  }
+
   return (
     <div>
       <Hero />
@@ -40,7 +48,7 @@ const Home = () => {
           </div>
 
           <div className='content-wrapper'>
-            <div className='columns'>{renderServices(services)}</div>
+            <div className='columns'>{servicesJSX}</div>
           </div>
         </div>
       </section>

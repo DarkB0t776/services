@@ -974,6 +974,10 @@ Section Styles
 //Wrapper
 .content-wrapper {
   padding: 60px 0;
+  .columns {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 //Pulled image

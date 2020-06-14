@@ -9,6 +9,6 @@ export const fetchServices = async () => {
 
     return transformedData;
   } catch (err) {
-    console.log(err);
+    throw err;
   }
 };
