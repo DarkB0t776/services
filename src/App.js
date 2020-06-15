@@ -11,7 +11,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = authActions.onAuthStateChanged(async (authUser) => {
+    const unsubscribe = authActions.onAuthStateChanged((authUser) => {
       dispatch(authActions.storeAuthUser(authUser));
     });
 

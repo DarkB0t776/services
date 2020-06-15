@@ -5,6 +5,7 @@ import { useToasts } from 'react-toast-notifications';
 import { Redirect } from 'react-router-dom';
 
 import * as authActions from '../../redux/actions/auth';
+import withAuthorization from '../../components/hoc/withAuthorization';
 
 import RegisterForm from '../../components/auth/RegisterForm';
 
@@ -50,4 +51,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default withAuthorization('registered')(Register);

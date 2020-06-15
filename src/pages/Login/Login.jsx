@@ -4,6 +4,7 @@ import { useToasts } from 'react-toast-notifications';
 import { Redirect } from 'react-router-dom';
 
 import { loginUser } from '../../redux/actions/auth';
+import withAuthorization from '../../components/hoc/withAuthorization';
 
 const Login = () => {
   const { register, errors, handleSubmit } = useForm();
@@ -22,6 +23,8 @@ const Login = () => {
       });
     }
   };
+
+  console.log(redirect);
 
   if (redirect) return <Redirect to='/' />;
 
@@ -98,4 +101,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withAuthorization('registered')(Login);
