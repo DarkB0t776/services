@@ -52,3 +52,15 @@ export const login = async ({ email, password }) => {
     throw err.message;
   }
 };
+
+export const logout = () => firebase.auth().signOut();
+
+export const onAuthStateChanged = (cb) => {
+  return firebase.auth().onAuthStateChanged(cb);
+};
+
+export const getUserProfile = async (uid) => {
+  const snapShot = await db.collection('users').doc(uid).get();
+
+  return { uid, ...snapShot.data() };
+};

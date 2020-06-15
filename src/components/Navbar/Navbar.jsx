@@ -2,7 +2,40 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const Navbar = ({ id }) => {
+const Navbar = ({ id, auth, handleLogout }) => {
+  const { user, isLoggedIn } = auth;
+
+  const renderAuthLinks = (isLoggedIn) => {
+    if (isLoggedIn) {
+      return (
+        <div
+          onClick={handleLogout}
+          className='button signup-button is-danger rounded raised'
+          data-modal='auth-modal'
+        >
+          Log Out
+        </div>
+      );
+    }
+
+    return (
+      <>
+        <Link
+          to='/login'
+          className='navbar-item is-secondary modal-trigger'
+          data-modal='auth-modal'
+        >
+          Log in
+        </Link>
+        <Link to='/register' className='navbar-item'>
+          <span className='button signup-button rounded secondary-btn raised'>
+            Sign up
+          </span>
+        </Link>
+      </>
+    );
+  };
+
   return (
     <nav
       id={id || ''}
@@ -81,6 +114,11 @@ const Navbar = ({ id }) => {
           </div>
 
           <div className='navbar-end'>
+            {user && (
+              <div className='navbar-item is-secondary use-welcome'>
+                {`Hey, ${user.fullName}`}
+              </div>
+            )}
             <Link to='/' className='navbar-item is-secondary'>
               Home
             </Link>
@@ -99,18 +137,7 @@ const Navbar = ({ id }) => {
                 <a className='navbar-item'>Dropdown item</a>
               </div>
             </div>
-            <Link
-              to='/login'
-              className='navbar-item is-secondary modal-trigger'
-              data-modal='auth-modal'
-            >
-              Log in
-            </Link>
-            <Link to='/register' className='navbar-item'>
-              <span className='button signup-button rounded secondary-btn raised'>
-                Sign up
-              </span>
-            </Link>
+            {renderAuthLinks(isLoggedIn)}
           </div>
         </div>
       </div>
@@ -120,6 +147,8 @@ const Navbar = ({ id }) => {
 
 Navbar.propTypes = {
   id: PropTypes.string,
+  auth: PropTypes.object,
+  handleLogout: PropTypes.func,
 };
 
 export default Navbar;

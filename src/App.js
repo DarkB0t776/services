@@ -1,32 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ToastProvider } from 'react-toast-notifications';
 
-import Home from './pages/Home/Home';
-import Faq from './pages/FAQ/Faq';
-import Services from './pages/Services/Services';
-import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
-import ServiceDetail from './pages/ServiceDetail/ServiceDetail';
+import * as authActions from './redux/actions/auth';
 
-import Sidebar from './components/Sidebar/Sidebar';
-import Navbar from './components/Navbar/Navbar';
+import ServiceApp from './ServiceApp';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = authActions.onAuthStateChanged(async (authUser) => {
+      dispatch(authActions.storeAuthUser(authUser));
+    });
+
+    return unsubscribe;
+  }, []);
   return (
     <ToastProvider>
       <Router>
-        <Navbar />
-        <Navbar id='navbar-clone' />
-        <Sidebar />
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/register' component={Register} />
-          <Route path='/login' component={Login} />
-          <Route exact path='/services' component={Services} />
-          <Route path='/services/:id' component={ServiceDetail} />
-          <Route path='/faq' component={Faq} />
-        </Switch>
+        <ServiceApp />
       </Router>
     </ToastProvider>
   );
