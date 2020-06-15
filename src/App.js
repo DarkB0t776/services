@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { ToastProvider } from 'react-toast-notifications';
 
 import Home from './pages/Home/Home';
 import Faq from './pages/FAQ/Faq';
@@ -13,7 +14,7 @@ import Navbar from './components/Navbar/Navbar';
 
 const App = () => {
   return (
-    <div>
+    <ToastProvider>
       <Router>
         <Navbar />
         <Navbar id='navbar-clone' />
@@ -27,7 +28,7 @@ const App = () => {
           <Route path='/faq' component={Faq} />
         </Switch>
       </Router>
-    </div>
+    </ToastProvider>
   );
 };
 

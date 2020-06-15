@@ -2,18 +2,15 @@
 
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import PropTypes from 'prop-types';
 
 import { isValidImageUrl, isPasswordMatch } from '../../utils/validators';
 
-const RegisterForm = () => {
+const RegisterForm = ({ onSubmitHandler }) => {
   const { register, errors, handleSubmit, getValues } = useForm();
 
-  const getFormData = (data) => {
-    console.log(data);
-  };
-
   return (
-    <form onSubmit={handleSubmit(getFormData)}>
+    <form onSubmit={handleSubmit(onSubmitHandler)}>
       <div className='field'>
         <div className='control'>
           <input
@@ -147,6 +144,10 @@ const RegisterForm = () => {
       </button>
     </form>
   );
+};
+
+RegisterForm.propTypes = {
+  onSubmitHandler: PropTypes.func.isRequired,
 };
 
 export default RegisterForm;

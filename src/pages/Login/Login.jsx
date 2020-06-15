@@ -1,6 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useToasts } from 'react-toast-notifications';
+import { Redirect } from 'react-router-dom';
+
+import { loginUser } from '../../redux/actions/auth';
 
 const Login = () => {
+  const { register, errors, handleSubmit } = useForm();
+  const { addToast } = useToasts();
+  const [redirect, setRedirect] = useState(false);
+
+  const onSubmitHandler = async (data) => {
+    try {
+      await loginUser(data);
+      setRedirect(true);
+    } catch (err) {
+      addToast(err, {
+        appearance: 'error',
+        autoDismissTimeout: 5000,
+        autoDismiss: true,
+      });
+    }
+  };
+
+  if (redirect) return <Redirect to='/' />;
+
   return (
     <div className='auth-page'>
       <div className='container has-text-centered'>
@@ -11,39 +35,52 @@ const Login = () => {
             <figure className='avatar'>
               <img src='https://placehold.it/128x128' alt='Logo' />
             </figure>
-            <form>
+            <form onSubmit={handleSubmit(onSubmitHandler)}>
               <div className='field'>
                 <div className='control'>
                   <input
+                    ref={register({ required: true })}
                     className='input is-large'
+                    name='email'
                     type='email'
                     placeholder='Your Email'
-                    autofocus=''
-                    autocomplete='email'
+                    autoFocus
+                    autoComplete='email'
                   />
-                  <div className='form-error'>
-                    <span className='help is-danger'>Email is required</span>
-                    <span className='help is-danger'>
-                      Email address is not valid
-                    </span>
-                  </div>
+                  {errors.email && (
+                    <div className='form-error'>
+                      {errors.email.type === 'required' && (
+                        <span className='help is-danger'>
+                          Email is required
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className='field'>
                 <div className='control'>
                   <input
+                    ref={register({ required: true })}
                     className='input is-large'
+                    name='password'
                     type='password'
                     placeholder='Your Password'
-                    autocomplete='current-password'
+                    autoComplete='current-password'
                   />
-                  <div className='form-error'>
-                    <span className='help is-danger'>Password is required</span>
-                  </div>
+                  {errors.password && (
+                    <div className='form-error'>
+                      {errors.password.type === 'required' && (
+                        <span className='help is-danger'>
+                          Password is required
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
               <button
-                type='button'
+                type='submit'
                 className='button is-block is-info is-large is-fullwidth'
               >
                 Sign In

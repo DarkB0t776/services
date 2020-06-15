@@ -1,9 +1,32 @@
 // eslint-disable-next-line
 
-import React from 'react';
+import React, { useState } from 'react';
+import { useToasts } from 'react-toast-notifications';
+import { Redirect } from 'react-router-dom';
+
+import * as authActions from '../../redux/actions/auth';
+
 import RegisterForm from '../../components/auth/RegisterForm';
 
 const Register = () => {
+  const [redirect, setRedirect] = useState(false);
+  const { addToast } = useToasts();
+
+  const registerUser = async (formData) => {
+    try {
+      await authActions.registerUser(formData);
+      setRedirect(true);
+    } catch (err) {
+      addToast(err, {
+        appearance: 'error',
+        autoDismissTimeout: 5000,
+        autoDismiss: true,
+      });
+    }
+  };
+
+  if (redirect) return <Redirect to='/' />;
+
   return (
     <div className='auth-page'>
       <div className='container has-text-centered'>
@@ -14,7 +37,7 @@ const Register = () => {
             <figure className='avatar'>
               <img src='https://placehold.it/128x128' alt='logo' />
             </figure>
-            <RegisterForm />
+            <RegisterForm onSubmitHandler={registerUser} />
           </div>
           <p className='has-text-grey'>
             <a>Sign In With Google</a>&nbsp;
