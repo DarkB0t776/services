@@ -17,6 +17,22 @@ export const fetchServices = async () => {
   }
 };
 
+export const fetchUserServices = async (userId) => {
+  try {
+    const collectionRef = await db
+      .collection('services')
+      .where('user', '==', userId)
+      .get();
+    const transformedData = collectionRef.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
+
+    return transformedData;
+  } catch (err) {
+    throw err;
+  }
+};
+
 export const createService = async (service) => {
   try {
     console.log(service);

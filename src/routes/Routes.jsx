@@ -8,6 +8,7 @@ import Login from '../pages/Login/Login';
 import Register from '../pages/Register/Register';
 import ServiceDetail from '../pages/ServiceDetail/ServiceDetail';
 import ServiceCreate from '../pages/ServiceCreate/ServiceCreate';
+import UserServices from '../pages/UserServices/UserServices';
 
 const Routes = () => {
   return (
@@ -17,6 +18,7 @@ const Routes = () => {
       <Route path='/login' component={Login} />
       <Route exact path='/services' component={Services} />
       <Route path='/services/new' component={ServiceCreate} />
+      <Route path='/services/user' component={UserServices} />
       <Route path='/services/:id' component={ServiceDetail} />
       <Route path='/faq' component={Faq} />
     </Switch>

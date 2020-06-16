@@ -128,15 +128,22 @@ const Navbar = ({ id, auth, handleLogout }) => {
             <Link to='/faq' className='navbar-item is-secondary'>
               FAQ
             </Link>
-            <div className='navbar-item has-dropdown is-hoverable'>
-              <a className='navbar-link'>Dropdown</a>
-
-              <div className='navbar-dropdown'>
-                <a className='navbar-item'>Dropdown item</a>
-                <a className='navbar-item'>Dropdown item</a>
-                <a className='navbar-item'>Dropdown item</a>
+            {isLoggedIn && (
+              <div className='navbar-item has-dropdown is-hoverable'>
+                <a className='navbar-link'>Manage</a>
+                <div className='navbar-dropdown'>
+                  <Link to='/services/new' className='navbar-item'>
+                    Create Service
+                  </Link>
+                  <Link to='/services/user' className='navbar-item'>
+                    My Services
+                  </Link>
+                  <Link to='/' className='navbar-item'>
+                    Dropdown item
+                  </Link>
+                </div>
               </div>
-            </div>
+            )}
             {renderAuthLinks(isLoggedIn)}
           </div>
         </div>
