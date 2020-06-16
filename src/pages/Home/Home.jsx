@@ -48,7 +48,7 @@ const Home = () => {
           </div>
 
           <div className='content-wrapper'>
-            <div className='columns'>{servicesJSX}</div>
+            <div className='columns is-multiline'>{servicesJSX}</div>
           </div>
         </div>
       </section>

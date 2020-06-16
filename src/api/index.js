@@ -17,6 +17,16 @@ export const fetchServices = async () => {
   }
 };
 
+export const createService = async (service) => {
+  try {
+    console.log(service);
+    const docRef = await db.collection('services').add(service);
+    return docRef;
+  } catch (err) {
+    throw err.message;
+  }
+};
+
 // Auth
 
 export const createUserProfile = (userProfile) =>

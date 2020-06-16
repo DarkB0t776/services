@@ -33,3 +33,9 @@ export const selectService = (id) => {
     id,
   };
 };
+
+export const createService = (newService, userId) => {
+  newService.price = parseInt(newService.price, 10);
+  newService.user = userId;
+  return api.createService(newService);
+};
