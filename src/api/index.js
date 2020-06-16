@@ -17,6 +17,12 @@ export const fetchServices = async () => {
   }
 };
 
+export const fetchServiceById = async (serviceId) => {
+  const snapshot = await db.collection('services').doc(serviceId).get();
+
+  return { id: snapshot.id, ...snapshot.data() };
+};
+
 export const fetchUserServices = async (userId) => {
   try {
     const collectionRef = await db
@@ -89,4 +95,12 @@ export const getUserProfile = async (uid) => {
   const snapShot = await db.collection('users').doc(uid).get();
 
   return { uid, ...snapShot.data() };
+};
+
+// export const createUserRef = (userId) => {
+//   return db.doc(`users/${userId}`);
+// }
+
+export const createRef = (collection, docId) => {
+  return db.doc(`${collection}/${docId}`);
 };

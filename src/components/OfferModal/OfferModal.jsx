@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal';
 
 const OfferModal = ({ service }) => {
+  console.log(service);
   const [offer, setOffer] = useState({
     fromUser: '',
     toUser: '',
@@ -60,7 +61,8 @@ const OfferModal = ({ service }) => {
       </div>
       <div className='service-price has-text-centered'>
         <div className='service-price-title'>
-          Uppon acceptance "Filip Jerga" will charge you:
+          {service.user?.fullName &&
+            `Uppon acceptance "${service.user.fullName}" will charge you:`}
         </div>
         <div className='service-price-value'>
           <h1 className='title'>{offer.price}$</h1>

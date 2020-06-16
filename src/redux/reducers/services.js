@@ -1,6 +1,5 @@
 import {
   FETCH_SERVICES_SUCCESS,
-  SELECT_SERVICE,
   FETCH_SERVICES_REQUEST,
   FETCH_SERVICES_FAIL,
   FETCH_USER_SERVICES_REQUEST,
@@ -10,7 +9,6 @@ import {
 
 const initialState = {
   items: [],
-  selectedService: {},
   userServices: [],
   isFetching: false,
   fetchError: '',
@@ -51,12 +49,6 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: false,
         fetchError: action.error,
-      };
-    case SELECT_SERVICE:
-      const selectedService = state.items.find((item) => item.id === action.id);
-      return {
-        ...state,
-        selectedService,
       };
     default:
       return state;

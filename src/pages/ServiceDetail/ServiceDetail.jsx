@@ -2,18 +2,22 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { selectService } from '../../redux/actions';
+import { fetchServiceById } from '../../redux/actions';
 
 import OfferModal from '../../components/OfferModal/OfferModal';
+import Spinner from '../../components/Spinner/Spinner';
 
 const ServiceDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const service = useSelector((state) => state.services.selectedService);
+  const service = useSelector((state) => state.serviceById.item);
+  const { isFetching } = useSelector((state) => state.serviceById);
 
   useEffect(() => {
-    dispatch(selectService(id));
+    dispatch(fetchServiceById(id));
   }, [id, dispatch]);
+
+  if (isFetching) return <Spinner />;
 
   return (
     <section className='hero is-fullheight is-default is-bold'>
