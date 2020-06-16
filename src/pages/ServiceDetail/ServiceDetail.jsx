@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 
 import { selectService } from '../../redux/actions';
 
+import OfferModal from '../../components/OfferModal/OfferModal';
+
 const ServiceDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -27,11 +29,9 @@ const ServiceDetail = () => {
               <h1 className='title is-2'>{service.title}</h1>
               <h2 className='subtitle is-4'>{service.description}</h2>
               <br />
-              <p className='has-text-centered'>
-                <button className='button is-medium is-info is-outlined'>
-                  Learn more
-                </button>
-              </p>
+              <div className='has-text-centered'>
+                <OfferModal service={service} />
+              </div>
             </div>
           </div>
         </div>
