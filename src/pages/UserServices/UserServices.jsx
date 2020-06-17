@@ -14,7 +14,7 @@ const UserServices = ({ userId }) => {
 
   useEffect(() => {
     dispatch(servicesActions.fetchUserServices(userId));
-  }, []);
+  }, [dispatch, userId]);
 
   const renderUserServices = () => {
     return userServices.map((service) => {

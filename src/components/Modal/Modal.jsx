@@ -30,7 +30,10 @@ const Modal = ({ openButtonText, children, onModalSubmit }) => {
           </header>
           <section className='modal-card-body'>{children}</section>
           <footer className='modal-card-foot'>
-            <button className='button is-success' onClick={onModalSubmit}>
+            <button
+              className='button is-success'
+              onClick={() => onModalSubmit(toggleIsActive)}
+            >
               Save changes
             </button>
             <button className='button' onClick={toggleIsActive}>

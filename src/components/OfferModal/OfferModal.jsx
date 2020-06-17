@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useToasts } from 'react-toast-notifications';
+import { useSelector } from 'react-redux';
+
+import * as offerActions from '../../redux/actions/offers';
+import { createRef } from '../../api/index';
 
 import Modal from '../Modal/Modal';
 
 const OfferModal = ({ service }) => {
-  console.log(service);
+  const { addToast } = useToasts();
+  const auth = useSelector((state) => state.auth);
+
   const [offer, setOffer] = useState({
     fromUser: '',
     toUser: '',
@@ -27,8 +34,28 @@ const OfferModal = ({ service }) => {
     });
   };
 
-  const handleSubmit = (event) => {
-    alert(JSON.stringify(offer));
+  const handleSubmit = async (closeModal) => {
+    const offerCopy = { ...offer };
+    offerCopy.fromUser = createRef('users', auth.user.uid);
+    offerCopy.toUser = createRef('users', service.user.id);
+    offerCopy.service = createRef('services', service.id);
+    offerCopy.time = parseInt(offer.time, 10);
+
+    try {
+      await offerActions.createOffer(offerCopy);
+      closeModal();
+      addToast('Offer was created successfully!', {
+        appearance: 'success',
+        autoDismissTimeout: 5000,
+        autoDismiss: true,
+      });
+    } catch (err) {
+      addToast(err, {
+        appearance: 'error',
+        autoDismissTimeout: 5000,
+        autoDismiss: true,
+      });
+    }
   };
 
   return (
