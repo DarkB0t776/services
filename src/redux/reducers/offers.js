@@ -4,6 +4,7 @@ import {
   FETCH_RECEIVED_OFFER_SUCCESS,
   FETCH_OFFER_FAIL,
   CHANGE_OFFER_STATUS,
+  COLLABORATION_CREATED_FROM_OFFER,
 } from '../types';
 
 const initialState = {
@@ -38,7 +39,7 @@ export default (state = initialState, action) => {
         isFetching: false,
         fetchError: action.payload,
       };
-    case CHANGE_OFFER_STATUS:
+    case CHANGE_OFFER_STATUS: {
       const modifiedReceived = [...state.received];
       const offerIdx = modifiedReceived.findIndex(
         (o) => o.id === action.payload
@@ -48,6 +49,16 @@ export default (state = initialState, action) => {
         ...state,
         received: modifiedReceived,
       };
+    }
+    case COLLABORATION_CREATED_FROM_OFFER: {
+      const modifiedOffers = [...state[action.offersType]];
+      const offerIdx = modifiedOffers.findIndex((o) => o.id === action.payload);
+      modifiedOffers[offerIdx].collaborationCreated = true;
+      return {
+        ...state,
+        [action.offersType]: modifiedOffers,
+      };
+    }
     default:
       return state;
   }

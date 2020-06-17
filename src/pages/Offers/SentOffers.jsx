@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { useToasts } from 'react-toast-notifications';
 
 import * as offerActions from '../../redux/actions/offers';
 import * as collabActions from '../../redux/actions/collaborations';
@@ -11,6 +12,7 @@ import ServiceItem from '../../components/ServiceItem/ServiceItem';
 
 const SentOffers = ({ userId }) => {
   const dispatch = useDispatch();
+  const { addToast } = useToasts();
   const offers = useSelector((state) => state.offers.sent);
   const user = useSelector((state) => state.auth.user);
 
@@ -18,15 +20,20 @@ const SentOffers = ({ userId }) => {
     dispatch(offerActions.fetchOffers(userId, 'sent'));
   }, []);
 
-  const createCollaboration = async (offer) => {
+  const createCollaboration = (offer) => {
     const collaboration = offerUtils.createNewCollaboration({
       offer,
       fromUser: user,
     });
     const message = offerUtils.createNewMessage({ offer, fromUser: user });
 
-    const res = await collabActions.collaborate({ collaboration, message });
-    alert('Collab was created');
+    dispatch(collabActions.collaborate({ collaboration, message }));
+
+    addToast('Collaboration created', {
+      appearance: 'success',
+      autoDismissTimeout: 5000,
+      autoDismiss: true,
+    });
   };
 
   return (
@@ -59,7 +66,7 @@ const SentOffers = ({ userId }) => {
                     <span className='label'>Time:</span> {offer.time} hours
                   </div>
                 </div>
-                {offer.status === 'accepted' && (
+                {offer.status === 'accepted' && !offer.collaborationCreated && (
                   <div>
                     <hr />
                     <button

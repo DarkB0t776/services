@@ -28,3 +28,10 @@ export const fetchOffers = async (userId, type) => {
 export const changeOfferStatus = async (offerId, status) => {
   await db.collection('offers').doc(offerId).update({ status });
 };
+
+export const markOfferAsInCollaboration = async (offerId) => {
+  await db
+    .collection('offers')
+    .doc(offerId)
+    .update({ collaborationCreated: true });
+};
