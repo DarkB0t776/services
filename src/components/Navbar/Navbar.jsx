@@ -138,8 +138,11 @@ const Navbar = ({ id, auth, handleLogout }) => {
                   <Link to='/services/user' className='navbar-item'>
                     My Services
                   </Link>
-                  <Link to='/' className='navbar-item'>
-                    Dropdown item
+                  <Link to='/offers/sent' className='navbar-item'>
+                    Sent Offers
+                  </Link>
+                  <Link to='/offers/received' className='navbar-item'>
+                    Received Offers
                   </Link>
                 </div>
               </div>

@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
 import servicesReducer from './services';
 import authReducer from './auth';
-import serviceByIdReduce from './serviceById';
+import serviceByIdReducer from './serviceById';
+import offersReducer from './offers';
 
 const rootReducer = combineReducers({
   services: servicesReducer,
   auth: authReducer,
-  serviceById: serviceByIdReduce,
+  serviceById: serviceByIdReducer,
+  offers: offersReducer,
 });
 
 export default rootReducer;
