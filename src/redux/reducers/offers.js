@@ -3,6 +3,7 @@ import {
   FETCH_SENT_OFFER_SUCCESS,
   FETCH_RECEIVED_OFFER_SUCCESS,
   FETCH_OFFER_FAIL,
+  CHANGE_OFFER_STATUS,
 } from '../types';
 
 const initialState = {
@@ -12,8 +13,8 @@ const initialState = {
   fetchError: '',
 };
 
-export default (state = initialState, { type, payload }) => {
-  switch (type) {
+export default (state = initialState, action) => {
+  switch (action.type) {
     case FETCH_OFFER_REQUEST:
       return {
         ...state,
@@ -23,19 +24,29 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         isFetching: false,
-        sent: payload,
+        sent: action.payload,
       };
     case FETCH_RECEIVED_OFFER_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        received: payload,
+        received: action.payload,
       };
     case FETCH_OFFER_FAIL:
       return {
         ...state,
         isFetching: false,
-        fetchError: payload,
+        fetchError: action.payload,
+      };
+    case CHANGE_OFFER_STATUS:
+      const modifiedReceived = [...state.received];
+      const offerIdx = modifiedReceived.findIndex(
+        (o) => o.id === action.payload
+      );
+      modifiedReceived[offerIdx].status = action.status;
+      return {
+        ...state,
+        received: modifiedReceived,
       };
     default:
       return state;

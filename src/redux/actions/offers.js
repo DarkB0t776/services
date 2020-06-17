@@ -3,6 +3,7 @@ import {
   FETCH_SENT_OFFER_SUCCESS,
   FETCH_RECEIVED_OFFER_SUCCESS,
   FETCH_OFFER_FAIL,
+  CHANGE_OFFER_STATUS,
 } from '../types';
 
 import * as offersApi from '../../api/offers';
@@ -46,5 +47,16 @@ export const fetchOffers = (userId, type) => {
         payload: err,
       });
     }
+  };
+};
+
+export const changeOfferStatus = (offerId, status) => {
+  return async (dispatch) => {
+    await offersApi.changeOfferStatus(offerId, status);
+    dispatch({
+      type: CHANGE_OFFER_STATUS,
+      payload: offerId,
+      status,
+    });
   };
 };

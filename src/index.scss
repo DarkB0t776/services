@@ -33,6 +33,10 @@ $section-grey: #fbfbfb;
 General Keyframes animations
 ========================================================================== */
 
+.s-m-r {
+  margin-right: 5px;
+}
+
 .animated {
   animation-duration: 0.5s;
   animation-fill-mode: both;

@@ -15,11 +15,17 @@ const ReceivedOffer = ({ userId }) => {
     dispatch(offerActions.fetchOffers(userId, 'received'));
   }, []);
 
-  const acceptOffer = (offer) => {
-    alert(`Accepting ${JSON.stringify(offer)}`);
+  const acceptOffer = (offerId) => {
+    dispatch(offerActions.changeOfferStatus(offerId, 'accepted'));
   };
-  const declineOffer = (offer) => {
-    alert(`Declining ${JSON.stringify(offer)}`);
+  const declineOffer = (offerId) => {
+    dispatch(offerActions.changeOfferStatus(offerId, 'declined'));
+  };
+
+  const statusClass = (status) => {
+    if (status === 'pending') return 'is-warning';
+    if (status === 'accepted') return 'is-success';
+    if (status === 'declined') return 'is-danger';
   };
 
   return (
@@ -35,7 +41,9 @@ const ReceivedOffer = ({ userId }) => {
                 className='offer-card'
                 {...offer.service}
               >
-                <div className='tag is-large'>{offer.status}</div>
+                <div className={`tag is-large ${statusClass(offer.status)}`}>
+                  {offer.status}
+                </div>
                 <hr />
                 <div className='service-offer'>
                   <div>
@@ -52,21 +60,23 @@ const ReceivedOffer = ({ userId }) => {
                     <span className='label'>Time:</span> {offer.time} hours
                   </div>
                 </div>
-                <div>
-                  <hr />
-                  <button
-                    onClick={() => acceptOffer(offer)}
-                    className='button is-success'
-                  >
-                    Accept
-                  </button>
-                  <button
-                    onClick={() => declineOffer(offer)}
-                    className='button is-danger'
-                  >
-                    Decline
-                  </button>
-                </div>
+                {offer.status === 'pending' && (
+                  <div>
+                    <hr />
+                    <button
+                      onClick={() => acceptOffer(offer.id)}
+                      className='button is-success s-m-r'
+                    >
+                      Accept
+                    </button>
+                    <button
+                      onClick={() => declineOffer(offer.id)}
+                      className='button is-danger'
+                    >
+                      Decline
+                    </button>
+                  </div>
+                )}
               </ServiceItem>
             ))}
           </div>
