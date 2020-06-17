@@ -202,6 +202,40 @@ Classes to change the feel of bulma buttons
   }
 }
 
+.service-detail-page {
+  .service-title {
+    margin-bottom: 5px;
+  }
+
+  .service-category {
+    margin-bottom: 30px;
+  }
+
+  .service-price {
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .service-description {
+    font-size: 21px;
+  }
+
+  .user-container {
+    text-align: left !important;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .user-image {
+      margin-right: 20px;
+    }
+
+    .user-name {
+      font-size: 21px;
+    }
+  }
+}
+
 // MODAL
 .modal {
   text-align: left !important;
@@ -361,6 +395,11 @@ Cards and Card content styles
   &.is-bordered {
     border: 1px solid $fade-grey;
   }
+}
+
+.offer-card {
+  height: auto;
+  padding-bottom: 20px;
 }
 
 // Flex Card
