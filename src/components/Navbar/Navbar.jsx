@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+
+import ReceivedMessages from '../ReceivedMessages';
 
 const Navbar = ({ id, auth, handleLogout }) => {
   const { user, isLoggedIn } = auth;
+  const messages = useSelector((state) => state.userMessages.items);
 
   const renderAuthLinks = (isLoggedIn) => {
     if (isLoggedIn) {
@@ -129,23 +133,31 @@ const Navbar = ({ id, auth, handleLogout }) => {
               FAQ
             </Link>
             {isLoggedIn && (
-              <div className='navbar-item has-dropdown is-hoverable'>
-                <a className='navbar-link'>Manage</a>
-                <div className='navbar-dropdown'>
-                  <Link to='/services/new' className='navbar-item'>
-                    Create Service
-                  </Link>
-                  <Link to='/services/user' className='navbar-item'>
-                    My Services
-                  </Link>
-                  <Link to='/offers/sent' className='navbar-item'>
-                    Sent Offers
-                  </Link>
-                  <Link to='/offers/received' className='navbar-item'>
-                    Received Offers
-                  </Link>
+              <>
+                <div className='navbar-item has-dropdown is-hoverable'>
+                  <a className='navbar-link'>Manage</a>
+                  <div className='navbar-dropdown'>
+                    <Link to='/services/new' className='navbar-item'>
+                      Create Service
+                    </Link>
+                    <Link to='/services/user' className='navbar-item'>
+                      My Services
+                    </Link>
+                    <Link to='/offers/sent' className='navbar-item'>
+                      Sent Offers
+                    </Link>
+                    <Link to='/offers/received' className='navbar-item'>
+                      Received Offers
+                    </Link>
+                  </div>
                 </div>
-              </div>
+                <div className='navbar-item has-dropdown is-hoverable'>
+                  <a className='navbar-link'>Messages</a>
+                  <div className='navbar-dropdown navbar-dropdown-messages'>
+                    {messages && <ReceivedMessages />}
+                  </div>
+                </div>
+              </>
             )}
             {renderAuthLinks(isLoggedIn)}
           </div>
