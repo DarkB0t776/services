@@ -14,3 +14,17 @@ export const sendMessage = async (message) => {
 
   return docRef;
 };
+
+export const subscribeToMessages = async (userId, cb) => {
+  return db
+    .collection('users')
+    .doc(userId)
+    .collection('messages')
+    .onSnapshot((snapshot) => {
+      const messages = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      cb(messages);
+    });
+};

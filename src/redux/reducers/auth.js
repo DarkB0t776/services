@@ -1,4 +1,4 @@
-import { SET_AUTH_USER } from '../types';
+import { SET_AUTH_USER, FETCH_USER_MESSAGES_SUCCESS } from '../types';
 
 const initialState = {
   user: null,
