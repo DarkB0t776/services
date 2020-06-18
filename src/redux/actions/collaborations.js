@@ -5,6 +5,7 @@ import {
   FETCH_USER_MESSAGES_SUCCESS,
   FETCH_USER_MESSAGES_REQUEST,
   FETCH_USER_MESSAGES_FAIL,
+  MARK_MESSAGE_AS_READ,
 } from '../types';
 
 export const collaborate = ({ collaboration, message }) => async (dispatch) => {
@@ -37,4 +38,14 @@ export const subscribeToMessages = (userId) => async (dispatch) => {
   } catch (err) {
     dispatch({ type: FETCH_USER_MESSAGES_FAIL, error: err.message });
   }
+};
+
+export const markMessageAdRead = (message) => async (dispatch) => {
+  try {
+    await collabApi.markMessageAsRead(message);
+    dispatch({
+      type: MARK_MESSAGE_AS_READ,
+      id: message.id,
+    });
+  } catch {}
 };

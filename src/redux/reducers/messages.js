@@ -2,6 +2,7 @@ import {
   FETCH_USER_MESSAGES_REQUEST,
   FETCH_USER_MESSAGES_SUCCESS,
   FETCH_USER_MESSAGES_FAIL,
+  MARK_MESSAGE_AS_READ,
 } from '../types';
 
 const initialState = {
@@ -25,6 +26,15 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: false,
         fetchError: action.error,
+      };
+    case MARK_MESSAGE_AS_READ:
+      const newMessages = [...state.items];
+      const msgIdx = newMessages.findIndex((m) => m.id === action.id);
+      newMessages[msgIdx].isRead = true;
+
+      return {
+        ...state,
+        items: newMessages,
       };
     default:
       return state;

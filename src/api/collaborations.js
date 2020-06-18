@@ -28,3 +28,12 @@ export const subscribeToMessages = async (userId, cb) => {
       cb(messages);
     });
 };
+
+export const markMessageAsRead = async (message) => {
+  return await db
+    .collection('users')
+    .doc(message.toUser)
+    .collection('messages')
+    .doc(message.id)
+    .update({ isRead: true });
+};
